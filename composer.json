@@ -1,0 +1,19 @@
+{
+    "name": "danhunsaker/bcmath",
+    "description": "PHP bcmath as a static class, with several enhancements.",
+    "require": {
+        "ext-bcmath": "^0.0.0"
+    },
+    "require-dev": {
+        "behat/behat": "^3.0",
+        "henrikbjorn/phpspec-code-coverage": "^2.0",
+        "phpspec/phpspec": "^2.4",
+        "phpunit/phpunit": "^5.2",
+        "rmiller/behat-spec": "^0.3.0"
+    },
+    "license": "MIT",
+    "authors": [{
+        "name": "Daniel Hunsaker",
+        "email": "danhunsaker@gmail.com"
+    }]
+}
