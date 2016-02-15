@@ -15,5 +15,15 @@
     "authors": [{
         "name": "Daniel Hunsaker",
         "email": "danhunsaker@gmail.com"
-    }]
+    }],
+    "autoload": {
+        "psr-4": {
+            "Danhunsaker\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Danhunsaker\\BC\\Tests\\": "tests/"
+        }
+    }
 }

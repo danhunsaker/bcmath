@@ -43,6 +43,10 @@ present in the extension:
 - `BC::ln()` gives the natural logarithm of the argument.
 - `BC::epow()` raises _e_ to the argument's power.  Another convenience wrapper
   for `BC::powfrac()`.
+- `BC::fact()` calculates the factorial of the argument.
+- `BC::max()` returns the largest value in an array (the first argument).
+- `BC::min()` returns the smallest value in an array (the first argument).
+- `BC::round()` rounds a value to a given scale.
 
 ## Contributions ##
 

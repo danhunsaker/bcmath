@@ -1,0 +1,24 @@
+suites:
+  calends:
+    namespace: Danhunsaker
+    psr4_prefix: Danhunsaker
+    src_path: %paths.config%/src
+    spec_path: %paths.config%
+    spec_prefix: spec
+extensions:
+  - PhpSpec\Extension\CodeCoverageExtension
+  - RMiller\BehatSpec\PhpSpecExtension
+  - RMiller\ExemplifyExtension\ExemplifyExtension
+  - RMiller\PhpSpecRunExtension\PhpSpecRunExtension
+rerunner:
+  path: vendor/bin/phpspec
+  commands: [describe, exemplify]
+code_coverage:
+  whitelist:
+    - src
+  format:
+    - html
+    - clover
+  output:
+    html: coverage/phpspec
+    clover: coverage/phpspec.xml

@@ -1,0 +1,10 @@
+default:
+  suites:
+    core_features:
+      paths: [ %paths.base%/features ]
+      contexts:
+        - FeatureContext
+  extensions:
+    RMiller\BehatSpec\BehatExtension:
+      path: vendor/bin/phpspec
+      config: phpspec.yml
