@@ -1,0 +1,7 @@
+suites:
+  calends:
+    namespace: Danhunsaker
+    psr4_prefix: Danhunsaker
+    src_path: %paths.config%/src
+    spec_path: %paths.config%
+    spec_prefix: spec

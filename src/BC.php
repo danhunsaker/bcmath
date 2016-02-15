@@ -4,9 +4,15 @@ namespace Danhunsaker;
 
 class BC
 {
+    protected static $internalScale = 100;
+
+    protected static $iterations = 50;
+
     protected static $scale = null;
 
     protected $instanceScale = null;
+
+    // Extension-provided methods
 
     public static function add($a, $b, $scale = null)
     {
@@ -78,44 +84,49 @@ class BC
         return bcsub($a, $b, $scale);
     }
 
-    public static function modfrac($a, $b, $scale = null)
-    {
-        $scale = static::getScale($scale);
-
-        return static::sub($a, static::mul(static::div($a, $b, 0), $b, $scale), $scale);
-    }
-
-    public static function powfrac($base, $pow, $scale = null)
-    {
-        $scale = static::getScale($scale);
-
-        return static::epow(static::mul(static::ln($base, $scale), $pow, $scale), $scale);
-    }
-
-    public static function root($base, $root, $scale = null)
-    {
-        $scale = static::getScale($scale);
-
-        return static::powfrac($base, static::div(1, $root, $scale), $scale);
-    }
+    // Extended (convenience) methods
 
     public static function epow($val, $scale = null)
     {
         $scale = static::getScale($scale);
 
-        $retval = static::add('1.0', $val, $scale);
-        for ($i = 0; $i < 25; $i++) {
-            $retval += static::div(static::pow($val, static::add($i, '2', $scale), $scale), static::fact(static::add($i, '2', $scale), $scale), $scale);
+        $retval = static::add(1, $val, $scale);
+        for ($i = 0; $i < static::$iterations; $i++) {
+            $iplus = static::add($i, 2, static::$internalScale);
+            $retval += static::div(static::pow($val, $iplus, static::$internalScale), static::fact($iplus, static::$internalScale), static::$internalScale);
         }
 
-        return $retval;
+        return static::add($retval, 0, $scale);
     }
 
     public static function fact($val, $scale = null)
     {
         $scale = static::getScale($scale);
 
-        return $val == '1' ? '1' : static::mul($val, static::fact(static::sub($val, '1'), $scale), $scale);
+        return $val == '1' ? '1' : static::add(static::mul($val, static::fact(static::sub($val, '1'), static::$internalScale), static::$internalScale), 0, $scale);
+    }
+
+    public static function ln($val, $scale = null)
+    {
+        $scale = static::getScale($scale);
+
+        $retval = 0;
+        for ($i = 0; $i < static::$iterations; $i++) {
+            $pow      = static::add(1, static::mul(2, $i, static::$internalScale), static::$internalScale);
+            $mul      = static::div(1, $pow, static::$internalScale);
+            $base     = static::div(static::sub($val, 1, static::$internalScale), static::add($val, 1, static::$internalScale), static::$internalScale);
+            $fraction = static::mul($mul, static::pow($base, $pow, static::$internalScale), static::$internalScale);
+            $retval   = static::add($fraction, $retval, static::$internalScale);
+        }
+
+        return static::add(static::mul(2, $retval, static::$internalScale), 0, $scale);
+    }
+
+    public static function log($val, $scale = null)
+    {
+        $scale = static::getScale($scale);
+
+        return static::add(static::div(static::ln($val, static::$internalScale), static::ln(10, static::$internalScale), static::$internalScale), 0, $scale);
     }
 
     public static function max(array $args, $scale = null)
@@ -124,12 +135,12 @@ class BC
 
         $retval = array_shift($args);
         foreach ($args as $value) {
-            if (static::comp($value, $retval, $scale) > 0) {
-                $retval = $value;
+            if (static::comp($value, $retval, static::$internalScale) > 0) {
+                $retval = bcadd($value, 0, static::$internalScale);
             }
         }
 
-        return $retval;
+        return static::add($retval, 0, $scale);
     }
 
     public static function min(array $args, $scale = null)
@@ -138,34 +149,33 @@ class BC
 
         $retval = array_shift($args);
         foreach ($args as $value) {
-            if (static::comp($value, $retval, $scale) < 0) {
-                $retval = $value;
+            if (static::comp($value, $retval, static::$internalScale) < 0) {
+                $retval = bcadd($value, 0, static::$internalScale);
             }
         }
 
-        return $retval;
+        return static::add($retval, 0, $scale);
     }
 
-    public static function log($val, $scale = null)
+    public static function modfrac($a, $b, $scale = null)
     {
         $scale = static::getScale($scale);
 
-        return $val == '1' ? '0' : static::div(static::ln($val, $scale), static::ln(10, $scale), $scale);
+        return static::sub($a, static::mul(static::div($a, $b, 0), $b, static::$internalScale), $scale);
     }
 
-    public static function ln($val, $scale = null)
+    public static function powfrac($base, $pow, $scale = null)
     {
         $scale = static::getScale($scale);
 
-        $retval = 0;
-        for ($i = 0; $i < 25; $i++) {
-            $pow      = static::add(1, static::mul(2, $i, $scale), $scale);
-            $mul      = static::div(1, $pow, $scale);
-            $fraction = static::mul($mul, static::pow(static::div(static::sub($val, 1, $scale), static::add($val, 1, $scale)), $pow), $scale);
-            $retval   = static::add($fraction, $retval, $scale);
-        }
+        return static::add(static::epow(static::mul(static::ln($base, static::$internalScale), $pow, static::$internalScale), static::$internalScale), 0, $scale);
+    }
 
-        return static::mul(2, $retval, $scale);
+    public static function root($base, $root, $scale = null)
+    {
+        $scale = static::getScale($scale);
+
+        return static::powfrac($base, static::div(1, $root, static::$internalScale), $scale);
     }
 
     public static function round($val, $scale = null)
@@ -179,6 +189,8 @@ class BC
             return $val;
         }
     }
+
+    // Internal utility methods
 
     protected static function getScale($scale)
     {

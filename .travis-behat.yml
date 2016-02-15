@@ -1,0 +1,6 @@
+default:
+  suites:
+    core_features:
+      paths: [ %paths.base%/features ]
+      contexts:
+        - FeatureContext

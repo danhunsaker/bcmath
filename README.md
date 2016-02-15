@@ -1,6 +1,13 @@
 BC::math
 ========
 
+[![Software License](https://img.shields.io/packagist/l/danhunsaker/bcmath.svg?style=flat-square)](LICENSE.md)
+[![Gitter](https://img.shields.io/gitter/room/danhunsaker/bcmath.svg?style=flat-square)](https://gitter.im/danhunsaker/bcmath)
+
+[![Latest Version](https://img.shields.io/github/release/danhunsaker/bcmath.svg?style=flat-square)](https://github.com/danhunsaker/bcmath/releases)
+[![Build Status](https://img.shields.io/travis/danhunsaker/bcmath.svg?style=flat-square)](https://travis-ci.org/danhunsaker/bcmath)
+[![Total Downloads](https://img.shields.io/packagist/dt/danhunsaker/bcmath.svg?style=flat-square)](https://packagist.org/packages/danhunsaker/bcmath)
+
 PHP bcmath as a static class, with several enhancements.
 
 ## Installation ##
@@ -33,19 +40,18 @@ In other words:
 There are also some additional convenience methods available, that aren't
 present in the extension:
 
+- `BC::epow()` raises _e_ to the argument's power.
+- `BC::fact()` calculates the factorial of the argument.
+- `BC::ln()` gives the natural logarithm of the argument.
+- `BC::log()` gives the base 10 logarithm of the argument (uses ln $val/ln 10).
+- `BC::max()` returns the largest value in an array (the first argument).
+- `BC::min()` returns the smallest value in an array (the first argument).
 - `BC::modfrac()` behaves exactly like `BC::mod()`, except it will return the
   fractional part of any remainder as well as the integer part.
 - `BC::powfrac()` supports fractional exponents, allowing roots other than the
   square to be calculated.
 - `BC::root()` is a complement to `BC::powfrac()`, and is in fact just a
   convenience wrapper for it.
-- `BC::log()` gives the base 10 logarithm of the argument.
-- `BC::ln()` gives the natural logarithm of the argument.
-- `BC::epow()` raises _e_ to the argument's power.  Another convenience wrapper
-  for `BC::powfrac()`.
-- `BC::fact()` calculates the factorial of the argument.
-- `BC::max()` returns the largest value in an array (the first argument).
-- `BC::min()` returns the smallest value in an array (the first argument).
 - `BC::round()` rounds a value to a given scale.
 
 ## Contributions ##

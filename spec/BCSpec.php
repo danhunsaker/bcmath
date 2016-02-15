@@ -30,7 +30,7 @@ class BCSpec extends ObjectBehavior
     public function it_should_have_extended_functionality()
     {
         $this::scale(18);
-        $this::epow(1)->shouldBeLike('2.7182818284590455');
+        $this::epow(1)->shouldBeLike('2.718281828459000000');
         $this::fact(5)->shouldBeLike(120);
         $this::ln(1)->shouldBeLike(0);
         $this::log(1)->shouldBeLike(0);
@@ -39,8 +39,8 @@ class BCSpec extends ObjectBehavior
         $this::modfrac(5.5, 1)->shouldBeLike(0.5);
         $this::powfrac(1, .5)->shouldBeLike(1);
         $this::root(1, 5)->shouldBeLike(1);
-        $this::round('2.7182818284590455', 18)->shouldBeLike('2.7182818284590455');
-        $this::round('2.7182818284590455', 7)->shouldBeLike('2.7182818');
-        $this::round('2.7182818284590455', 6)->shouldBeLike('2.718282');
+        $this::round('2.718281828459000000', 18)->shouldBeLike('2.718281828459000000');
+        $this::round('2.718281828459000000', 7)->shouldBeLike('2.7182818');
+        $this::round('2.718281828459000000', 6)->shouldBeLike('2.718282');
     }
 }
