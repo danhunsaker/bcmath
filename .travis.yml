@@ -13,7 +13,7 @@ matrix:
     - php: hhvm
 install:
   - if [[ "$(phpenv version-name)" != "hhvm" ]]; then echo 'error_reporting = E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini; fi
-  - composer install $(ver="$(phpenv version-name)"; if [[ "${ver:0:3}" == "5.5" || "${ver:0:3}" == "5.4" ]]; then echo '--ignore-platform-reqs'; fi)
+  - composer install
 script:
   - php vendor/bin/behat --config=.travis-behat.yml
   - php vendor/bin/phpspec run -v --config=.travis-phpspec.yml
