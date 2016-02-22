@@ -54,6 +54,61 @@ present in the extension:
   convenience wrapper for it.
 - `BC::round()` rounds a value to a given scale.
 
+### Expression Parser ###
+
+There's also `BC::parse()`, which lets you write your calculations as
+expressions instead of method calls.  It doesn't (yet) support *everything*
+available via method calls, but this is planned for a later release.  For the
+moment, here's a list of which ones *are* supported, and how to specify each in
+your expressions:
+
+- `BC::add(a, b)`     => `'a + b'`
+- `BC::div(a, b)`     => `'a / b'`
+- `BC::mod(a, b)`     => `'a % b'`
+- `BC::modfrac(a, b)` => `'a %% b'`
+- `BC::mul(a, b)`     => `'a * b'`
+- `BC::powfrac(a, b)` => `'a ^ b'`
+- `BC::sub(a, b)`     => `'a - b'`
+
+There are also some logical expressions available, all of which will return a
+boolean value (true/false) instead of a number:
+
+- `BC::comp(a, b) == 0`  => `'a = b'` or `'a == b'`
+- `BC::comp(a, b) == 1`  => `'a > b'`
+- `BC::comp(a, b) == -1` => `'a < b'`
+- `BC::comp(a, b) >= 0`  => `'a >= b'`
+- `BC::comp(a, b) <= 0`  => `'a <= b'`
+- `BC::comp(a, b) != 0`  => `'a != b'` or `'a <> b'`
+- `a and b`              => `'a & b'` or `'a && b'`
+- `a or b`               => `'a | b'` or `'a || b'`
+- `a xor b`              => `'a ~ b'` or `'a ~~ b'`
+
+The expression parser recognizes parentheses, so you can use those to group your
+subexpressions as needed.  It also supports variables:
+
+```php
+BC::parse('{m} * {x} + {b}', ['m' => 0.5, 'x' => 5, 'b' => 0]);
+```
+
+Need to specify a scale for your expression?  No problem, just pass it along in
+the third parameter:
+
+```php
+BC::parse('{m} * {x} + {b}', ['m' => 0.5, 'x' => 5, 'b' => 0], 18);
+```
+
+You can, of course, skip the variable list by passing `null` as the second
+argument:
+
+```php
+BC::parse('{m} * {x} + {b}', null, 18);
+
+// Any unrecognized variables are assumed to be zero,
+// so the above is the same as:
+
+BC::parse('0 * 0 + 0', null, 18);
+```
+
 ## Contributions ##
 
 Contributions are welcome at any time on [GitHub][].
