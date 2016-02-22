@@ -35,7 +35,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
     }
 
     /**
-     * @When /I call (BC::\w+)\((\[?[-0-9.,\s]+\]?)\)/
+     * @When /I call (BC::\w+)\((\[?[^\]]+\]?)\)/
      */
     public function iCallBcMethod($method, $args)
     {
@@ -44,7 +44,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
         } else {
             $args = explode(', ', $args);
         }
-        
+
         $this->latest = call_user_func_array("Danhunsaker\\{$method}", $args);
     }
 
@@ -63,10 +63,13 @@ class FeatureContext implements Context, SnippetAcceptingContext
     }
 
     /**
-     * @Then the return value should be :arg1
+     * @Then /the return value should be (.*)/
      */
     public function theReturnValueShouldBe($arg1)
     {
+        if ($arg1 == 'true') $arg1 = true;
+        elseif ($arg1 == 'false') $arg1 = false;
+
         PHPUnit_Framework_Assert::assertEquals($arg1, $this->latest);
     }
 }

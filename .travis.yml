@@ -6,14 +6,18 @@ php:
   - '5.6'
   - '7.0'
   - hhvm
+env:
+  matrix:
+    - PREFER_LOWEST="--prefer-lowest"
+    - PREFER_LOWEST=""
 matrix:
   allow_failures:
-    - php: '5.4'
-    - php: '7.0'
     - php: hhvm
+before_install:
+  - composer self-update
 install:
   - if [[ "$(phpenv version-name)" != "hhvm" ]]; then echo 'error_reporting = E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini; fi
-  - composer install
+  - travis_retry composer update --no-interaction --prefer-source $PREFER_LOWEST
 script:
   - php vendor/bin/behat --config=.travis-behat.yml
   - php vendor/bin/phpspec run -v --config=.travis-phpspec.yml

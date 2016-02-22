@@ -190,6 +190,88 @@ class BC
         }
     }
 
+    // Public utility methods
+
+    /**
+     * Parse a mathematical expression into calls to BC::math methods
+     *
+     * Will also allow you to use {tags} to represent variable values
+     *
+     * @param string $formula The expression to evaluate
+     * @param array|object $values An array of values to substitute into the expression
+     * @param integer $scale The scale to pass to BC::math methods
+     * @return string|integer|float|boolean
+     */
+    public static function parse($formula, $values = [], $scale = null)
+    {
+        $scale = static::getScale($scale);
+
+        $formula = str_replace(' ', '', "({$formula})");
+        if (empty($values) || ! (is_array($values) || is_a($values, 'ArrayAccess') || is_a($values, 'Iterator'))) {
+            $values = [];
+        }
+
+        foreach ($values as $key => $value) {
+            $formula = str_replace("{{$key}}", $value, $formula);
+        }
+        $formula = preg_replace("/\{[^{}]+\}/", '0', $formula);
+
+        $operations = [];
+        if (strpos($formula, '^') !== false) {
+            $operations[] = '\^';
+        }
+        if (strpbrk($formula, '*/%') !== false) {
+            $operations[] = '\*|\/|\%{1,2}';
+        }
+        if (strpbrk($formula, '+-') !== false) {
+            $operations[] = '[\+\-]';
+        }
+        if (strpbrk($formula, '<>!=') !== false) {
+            $operations[] = '<|=|>|<=|==|>=|!=|<>';
+        }
+        if (strpbrk($formula, '|&~') !== false) {
+            $operations[] = '(?:\||&|~){1,2}';
+        }
+
+        $operand = '(?:(?<=[^0-9\.,]|^)[+-])?[0-9\.,]+';
+
+        while (preg_match('/\(([^\)\(]+)\)/', $formula, $parenthetical)) {
+            foreach ($operations as $operation) {
+                while (preg_match("/({$operand})({$operation})({$operand})/", $parenthetical[1], $opTrio)) {
+                    switch ($opTrio[2]) {
+                        case '+':  $result = static::add($opTrio[1], $opTrio[3], $scale); break;
+                        case '-':  $result = static::sub($opTrio[1], $opTrio[3], $scale); break;
+                        case '*':  $result = static::mul($opTrio[1], $opTrio[3], $scale); break;
+                        case '/':  $result = static::div($opTrio[1], $opTrio[3], $scale); break;
+                        case '%':  $result = static::mod($opTrio[1], $opTrio[3], $scale); break;
+                        case '%%': $result = static::modfrac($opTrio[1], $opTrio[3], $scale); break;
+                        case '^':  $result = static::powfrac($opTrio[1], $opTrio[3], $scale); break;
+                        case '==':
+                        case '=':  $result = static::comp($opTrio[1], $opTrio[3], $scale) == 0; break;
+                        case '>':  $result = static::comp($opTrio[1], $opTrio[3], $scale) == 1; break;
+                        case '<':  $result = static::comp($opTrio[1], $opTrio[3], $scale) ==-1; break;
+                        case '>=': $result = static::comp($opTrio[1], $opTrio[3], $scale) >= 0; break;
+                        case '<=': $result = static::comp($opTrio[1], $opTrio[3], $scale) <= 0; break;
+                        case '<>':
+                        case '!=': $result = static::comp($opTrio[1], $opTrio[3], $scale) != 0; break;
+                        case '|':
+                        case '||': $result = ($opTrio[1] || $opTrio[3]); break;
+                        case '&':
+                        case '&&': $result = ($opTrio[1] && $opTrio[3]); break;
+                        case '~':
+                        case '~~': $result = (bool) ((bool) $opTrio[1] ^ (bool) $opTrio[3]); break;
+                    }
+                    // error_log("Replacing {$opTrio[0]} with {$result} in the {$parenthetical[0]} section of {$formula}");
+                    $parenthetical[1] = str_replace($opTrio[0], $result, $parenthetical[1]);
+                }
+            }
+            // error_log("Replacing {$parenthetical[0]} with {$parenthetical[1]} in {$formula}");
+            $formula = str_replace($parenthetical[0], $parenthetical[1], $formula);
+        }
+
+        return $formula;
+    }
+
     // Internal utility methods
 
     protected static function getScale($scale)
