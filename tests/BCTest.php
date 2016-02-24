@@ -183,6 +183,7 @@ class BCTest extends \PHPUnit_Framework_TestCase
         BC::scale(18);
         $this->assertEquals('6', BC::parse('1 + 5'));
         $this->assertEquals('-4', BC::parse('1 - 5'));
+        $this->assertEquals('1', BC::parse('5 \ 4'));
         $this->assertEquals('1.25', BC::parse('5 / 4'));
         $this->assertEquals('2.25', BC::parse('1 + 1.25'));
         $this->assertEquals('2.25', BC::parse('5 / 4 + 1'));
@@ -191,6 +192,7 @@ class BCTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('-0.25', BC::parse('1 + -5 / 4'));
         $this->assertEquals('-0.25', BC::parse('1 - +5 / 4'));
         $this->assertEquals('1.5', BC::parse('(1 + 5) / 4'));
+        $this->assertEquals('1', BC::parse('(1 + 5) \ 4'));
         $this->assertEquals('1', BC::parse('(1 + 5) / 4', null, 0));
         $this->assertEquals('1.5', BC::parse('({a} + {b}) / {c}', ['a' => 1, 'b' => 5, 'c' => 4]));
         $this->assertEquals('1', BC::parse('({a} + {b}) / {c}', ['a' => 1, 'b' => 5, 'c' => 4], 0));

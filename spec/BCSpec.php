@@ -46,9 +46,10 @@ class BCSpec extends ObjectBehavior
 
     public function it_should_have_utility_functions()
     {
-        $this->scale(18);
+        $this::scale(18);
         $this::parse('1 + 5')->shouldBeLike('6');
         $this::parse('1 - 5')->shouldBeLike('-4');
+        $this::parse('5 \ 4')->shouldBeLike('1');
         $this::parse('5 / 4')->shouldBeLike('1.25');
         $this::parse('1 + 1.25')->shouldBeLike('2.25');
         $this::parse('5 / 4 + 1')->shouldBeLike('2.25');
@@ -57,6 +58,7 @@ class BCSpec extends ObjectBehavior
         $this::parse('1 + -5 / 4')->shouldBeLike('-0.25');
         $this::parse('1 - +5 / 4')->shouldBeLike('-0.25');
         $this::parse('(1 + 5) / 4')->shouldBeLike('1.5');
+        $this::parse('(1 + 5) \ 4')->shouldBeLike('1');
         $this::parse('(1 + 5) / 4', null, 0)->shouldBeLike('1');
         $this::parse('({a} + {b}) / {c}', ['a' => 1, 'b' => 5, 'c' => 4])->shouldBeLike('1.5');
         $this::parse('({a} + {b}) / {c}', ['a' => 1, 'b' => 5, 'c' => 4], 0)->shouldBeLike('1');

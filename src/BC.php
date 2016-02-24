@@ -217,11 +217,11 @@ class BC
         $formula = preg_replace("/\{[^{}]+\}/", '0', $formula);
 
         $operations = [];
-        if (strpos($formula, '^') !== false) {
-            $operations[] = '\^';
+        if (strpbrk($formula, '^*') !== false) {
+            $operations[] = '\^|\*\*';
         }
-        if (strpbrk($formula, '*/%') !== false) {
-            $operations[] = '\*|\/|\%{1,2}';
+        if (strpbrk($formula, '*/%\\') !== false) {
+            $operations[] = '\*|\\\\|\/|\%{1,2}';
         }
         if (strpbrk($formula, '+-') !== false) {
             $operations[] = '[\+\-]';
@@ -243,13 +243,15 @@ class BC
                         case '-':  $result = static::sub($opTrio[1], $opTrio[3], $scale); break;
                         case '*':  $result = static::mul($opTrio[1], $opTrio[3], $scale); break;
                         case '/':  $result = static::div($opTrio[1], $opTrio[3], $scale); break;
+                        case '\\': $result = static::div($opTrio[1], $opTrio[3], 0); break;
                         case '%':  $result = static::mod($opTrio[1], $opTrio[3], $scale); break;
                         case '%%': $result = static::modfrac($opTrio[1], $opTrio[3], $scale); break;
+                        case '**': $result = static::pow($opTrio[1], $opTrio[3], $scale); break;
                         case '^':  $result = static::powfrac($opTrio[1], $opTrio[3], $scale); break;
                         case '==':
                         case '=':  $result = static::comp($opTrio[1], $opTrio[3], $scale) == 0; break;
-                        case '>':  $result = static::comp($opTrio[1], $opTrio[3], $scale) == 1; break;
-                        case '<':  $result = static::comp($opTrio[1], $opTrio[3], $scale) ==-1; break;
+                        case '>':  $result = static::comp($opTrio[1], $opTrio[3], $scale) >  0; break;
+                        case '<':  $result = static::comp($opTrio[1], $opTrio[3], $scale) <  0; break;
                         case '>=': $result = static::comp($opTrio[1], $opTrio[3], $scale) >= 0; break;
                         case '<=': $result = static::comp($opTrio[1], $opTrio[3], $scale) <= 0; break;
                         case '<>':
