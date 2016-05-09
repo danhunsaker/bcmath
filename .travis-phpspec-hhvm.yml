@@ -1,0 +1,9 @@
+suites:
+  calends:
+    namespace: Danhunsaker\Calends
+    psr4_prefix: Danhunsaker\Calends
+    src_path: %paths.config%/src
+    spec_path: %paths.config%
+    spec_prefix: spec
+extensions:
+  - Coduo\PhpSpec\DataProvider\DataProviderExtension

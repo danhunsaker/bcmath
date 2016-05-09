@@ -47,11 +47,30 @@ class BCSpec extends ObjectBehavior
     public function it_should_have_utility_functions()
     {
         $this::scale(18);
-        $this::parse('1 + 5')->shouldBeLike('6');
-        $this::parse('1 - 5')->shouldBeLike('-4');
-        $this::parse('5 \ 4')->shouldBeLike('1');
-        $this::parse('5 / 4')->shouldBeLike('1.25');
-        $this::parse('1 + 1.25')->shouldBeLike('2.25');
+        $this::parse('1 + 5')->shouldBeLike(6);
+        $this::parse('1 - 5')->shouldBeLike(-4);
+        $this::parse('1 * 5')->shouldBeLike(5);
+        $this::parse('1 / 5')->shouldBeLike(0.2);
+        $this::parse('1 \ 5')->shouldBeLike(0);
+        $this::parse('1 % 5')->shouldBeLike(1);
+        $this::parse('5.5 %% 2')->shouldBeLike(1.5);
+        $this::parse('5.5 \* 2')->shouldBeLike(4);
+        $this::parse('4 ** .5')->shouldBeLike(1);
+        $this::parse('4 ^ .5')->shouldBeLike(2);
+        $this::parse('1 = 5')->shouldBeLike(false);
+        $this::parse('1 == 5')->shouldBeLike(false);
+        $this::parse('1 > 5')->shouldBeLike(false);
+        $this::parse('1 < 5')->shouldBeLike(true);
+        $this::parse('1 >= 5')->shouldBeLike(false);
+        $this::parse('1 <= 5')->shouldBeLike(true);
+        $this::parse('1 <> 5')->shouldBeLike(true);
+        $this::parse('1 != 5')->shouldBeLike(true);
+        $this::parse('1 & 5')->shouldBeLike(true);
+        $this::parse('1 && 5')->shouldBeLike(true);
+        $this::parse('1 | 5')->shouldBeLike(true);
+        $this::parse('1 || 5')->shouldBeLike(true);
+        $this::parse('1 ~ 5')->shouldBeLike(false);
+        $this::parse('1 ~~ 5')->shouldBeLike(false);
         $this::parse('5 / 4 + 1')->shouldBeLike('2.25');
         $this::parse('1 + 5 / 4')->shouldBeLike('2.25');
         $this::parse('-1 + 5 / 4')->shouldBeLike('0.25');

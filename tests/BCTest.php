@@ -181,11 +181,30 @@ class BCTest extends \PHPUnit_Framework_TestCase
     public function testParse()
     {
         BC::scale(18);
-        $this->assertEquals('6', BC::parse('1 + 5'));
-        $this->assertEquals('-4', BC::parse('1 - 5'));
-        $this->assertEquals('1', BC::parse('5 \ 4'));
-        $this->assertEquals('1.25', BC::parse('5 / 4'));
-        $this->assertEquals('2.25', BC::parse('1 + 1.25'));
+        $this->assertEquals(6, BC::parse('1 + 5'));
+        $this->assertEquals(-4, BC::parse('1 - 5'));
+        $this->assertEquals(5, BC::parse('1 * 5'));
+        $this->assertEquals(0.2, BC::parse('1 / 5'));
+        $this->assertEquals(0, BC::parse('1 \ 5'));
+        $this->assertEquals(1, BC::parse('1 % 5'));
+        $this->assertEquals(1.5, BC::parse('5.5 %% 2'));
+        $this->assertEquals(4, BC::parse('5.5 \* 2'));
+        $this->assertEquals(1, BC::parse('4 ** .5'));
+        $this->assertEquals(2, BC::parse('4 ^ .5'));
+        $this->assertEquals(false, BC::parse('1 = 5'));
+        $this->assertEquals(false, BC::parse('1 == 5'));
+        $this->assertEquals(false, BC::parse('1 > 5'));
+        $this->assertEquals(true, BC::parse('1 < 5'));
+        $this->assertEquals(false, BC::parse('1 >= 5'));
+        $this->assertEquals(true, BC::parse('1 <= 5'));
+        $this->assertEquals(true, BC::parse('1 <> 5'));
+        $this->assertEquals(true, BC::parse('1 != 5'));
+        $this->assertEquals(true, BC::parse('1 & 5'));
+        $this->assertEquals(true, BC::parse('1 && 5'));
+        $this->assertEquals(true, BC::parse('1 | 5'));
+        $this->assertEquals(true, BC::parse('1 || 5'));
+        $this->assertEquals(false, BC::parse('1 ~ 5'));
+        $this->assertEquals(false, BC::parse('1 ~~ 5'));
         $this->assertEquals('2.25', BC::parse('5 / 4 + 1'));
         $this->assertEquals('2.25', BC::parse('1 + 5 / 4'));
         $this->assertEquals('0.25', BC::parse('-1 + 5 / 4'));

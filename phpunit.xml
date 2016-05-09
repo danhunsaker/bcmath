@@ -12,7 +12,7 @@
             </whitelist>
         </filter>
         <logging>
-            <log highLowerBound="70" lowUpperBound="35" target="coverage/phpunit" type="coverage-html" />
+            <log target="coverage/phpunit" type="coverage-html" />
             <log target="coverage/phpunit.xml" type="coverage-clover" />
         </logging>
     </phpunit>

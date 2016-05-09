@@ -62,15 +62,16 @@ available via method calls, but this is planned for a later release.  For the
 moment, here's a list of which ones *are* supported, and how to specify each in
 your expressions:
 
-- `BC::add(a, b)`     => `'a + b'`
-- `BC::div(a, b)`     => `'a / b'`
-- `BC::div(a, b, 0)`  => `'a \ b'`
-- `BC::mod(a, b)`     => `'a % b'`
-- `BC::modfrac(a, b)` => `'a %% b'`
-- `BC::mul(a, b)`     => `'a * b'`
-- `BC::pow(a, b)`     => `'a ** b'`
-- `BC::powfrac(a, b)` => `'a ^ b'`
-- `BC::sub(a, b)`     => `'a - b'`
+- `BC::add(a, b)`                => `'a + b'`
+- `BC::div(a, b)`                => `'a / b'`
+- `BC::div(a, b, 0)`             => `'a \ b'`
+- `BC::mul(BC::div(a, b, 0), b)` => `'a \* b'`
+- `BC::mod(a, b)`                => `'a % b'`
+- `BC::modfrac(a, b)`            => `'a %% b'`
+- `BC::mul(a, b)`                => `'a * b'`
+- `BC::pow(a, b)`                => `'a ** b'`
+- `BC::powfrac(a, b)`            => `'a ^ b'`
+- `BC::sub(a, b)`                => `'a - b'`
 
 There are also some logical expressions available, all of which will return a
 boolean value (true/false) instead of a number:

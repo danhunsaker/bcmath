@@ -1,15 +1,15 @@
 language: php
 php:
-  - '5.4'
-  - '5.5'
-  - '5.5.9'
-  - '5.6'
   - '7.0'
+  - '5.6'
+  - '5.5.9'
+  - '5.5'
+  - '5.4'
   - hhvm
 env:
   matrix:
-    - PREFER_LOWEST="--prefer-lowest"
     - PREFER_LOWEST=""
+    - PREFER_LOWEST="--prefer-lowest"
 matrix:
   allow_failures:
     - php: hhvm
@@ -20,5 +20,7 @@ install:
   - travis_retry composer update --no-interaction --prefer-source $PREFER_LOWEST
 script:
   - php vendor/bin/behat --config=.travis-behat.yml
-  - php vendor/bin/phpspec run -v --config=.travis-phpspec.yml
-  - phpunit -v --color -c .travis-phpunit.xml
+  - php vendor/bin/phpspec run -v --config=.travis-phpspec$([[ "$(phpenv version-name)" == "hhvm" ]] && echo -n "-hhvm").yml
+  - phpunit -v --color -c .travis-phpunit$([[ "$(phpenv version-name)" == "hhvm" ]] && echo -n "-hhvm").xml
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
