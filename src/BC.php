@@ -96,14 +96,14 @@ class BC
             $retval += static::div(static::pow($val, $iplus, static::$internalScale), static::fact($iplus, static::$internalScale), static::$internalScale);
         }
 
-        return static::intval($retval, $scale);
+        return static::add($retval, 0, $scale);
     }
 
     public static function fact($val, $scale = null)
     {
         $scale = static::getScale($scale);
 
-        return $val == '1' ? '1' : static::intval(static::mul($val, static::fact(static::sub($val, '1'), static::$internalScale), static::$internalScale), $scale);
+        return $val == '1' ? '1' : static::add(static::mul($val, static::fact(static::sub($val, '1'), static::$internalScale), static::$internalScale), 0, $scale);
     }
 
     public static function intval($val, $scale = null)
@@ -126,14 +126,14 @@ class BC
             $retval   = static::add($fraction, $retval, static::$internalScale);
         }
 
-        return static::intval(static::mul(2, $retval, static::$internalScale), $scale);
+        return static::add(static::mul(2, $retval, static::$internalScale), 0, $scale);
     }
 
     public static function log($val, $scale = null)
     {
         $scale = static::getScale($scale);
 
-        return static::intval(static::div(static::ln($val, static::$internalScale), static::ln(10, static::$internalScale), static::$internalScale), $scale);
+        return static::add(static::div(static::ln($val, static::$internalScale), static::ln(10, static::$internalScale), static::$internalScale), 0, $scale);
     }
 
     public static function max(array $args, $scale = null)
@@ -147,7 +147,7 @@ class BC
             }
         }
 
-        return static::intval($retval, $scale);
+        return static::add($retval, 0, $scale);
     }
 
     public static function min(array $args, $scale = null)
@@ -161,7 +161,7 @@ class BC
             }
         }
 
-        return static::intval($retval, $scale);
+        return static::add($retval, 0, $scale);
     }
 
     public static function modfrac($a, $b, $scale = null)
@@ -175,7 +175,7 @@ class BC
     {
         $scale = static::getScale($scale);
 
-        return static::intval(static::epow(static::mul(static::ln($base, static::$internalScale), $pow, static::$internalScale), static::$internalScale), $scale);
+        return static::add(static::epow(static::mul(static::ln($base, static::$internalScale), $pow, static::$internalScale), static::$internalScale), 0, $scale);
     }
 
     public static function root($base, $root, $scale = null)
