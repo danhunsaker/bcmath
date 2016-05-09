@@ -105,6 +105,15 @@ class BCTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+    * @covers ::intval
+    */
+    public function testIntval()
+    {
+        $this->assertEquals(1, BC::intval(1.5));
+        $this->assertEquals(1, BC::intval(1.75));
+    }
+
+    /**
      * @covers ::ln
      */
     public function testLn()

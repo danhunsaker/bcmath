@@ -33,3 +33,5 @@ Feature: Extended Function Implementation
       | 18    | max     | [1, 5]         | 5.000000000000000000   |
       | 0     | min     | [1, 5]         | 1                      |
       | 18    | min     | [1, 5]         | 1.000000000000000000   |
+      | 0     | intval  | 1.5            | 1                      |
+      | 18    | intval  | 1.5            | 1.000000000000000000   |

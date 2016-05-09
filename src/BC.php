@@ -37,7 +37,7 @@ class BC
 
     public static function mod($a, $b)
     {
-        return bcmod($a, $b);
+        return bcmod(static::intval($a, 0), static::intval($b, 0));
     }
 
     public static function mul($a, $b, $scale = null)
@@ -96,14 +96,21 @@ class BC
             $retval += static::div(static::pow($val, $iplus, static::$internalScale), static::fact($iplus, static::$internalScale), static::$internalScale);
         }
 
-        return static::add($retval, 0, $scale);
+        return static::intval($retval, $scale);
     }
 
     public static function fact($val, $scale = null)
     {
         $scale = static::getScale($scale);
 
-        return $val == '1' ? '1' : static::add(static::mul($val, static::fact(static::sub($val, '1'), static::$internalScale), static::$internalScale), 0, $scale);
+        return $val == '1' ? '1' : static::intval(static::mul($val, static::fact(static::sub($val, '1'), static::$internalScale), static::$internalScale), $scale);
+    }
+
+    public static function intval($val, $scale = null)
+    {
+        $scale = static::getScale($scale);
+
+        return static::add(static::add($val, 0, 0), 0, $scale);
     }
 
     public static function ln($val, $scale = null)
@@ -119,14 +126,14 @@ class BC
             $retval   = static::add($fraction, $retval, static::$internalScale);
         }
 
-        return static::add(static::mul(2, $retval, static::$internalScale), 0, $scale);
+        return static::intval(static::mul(2, $retval, static::$internalScale), $scale);
     }
 
     public static function log($val, $scale = null)
     {
         $scale = static::getScale($scale);
 
-        return static::add(static::div(static::ln($val, static::$internalScale), static::ln(10, static::$internalScale), static::$internalScale), 0, $scale);
+        return static::intval(static::div(static::ln($val, static::$internalScale), static::ln(10, static::$internalScale), static::$internalScale), $scale);
     }
 
     public static function max(array $args, $scale = null)
@@ -140,7 +147,7 @@ class BC
             }
         }
 
-        return static::add($retval, 0, $scale);
+        return static::intval($retval, $scale);
     }
 
     public static function min(array $args, $scale = null)
@@ -154,7 +161,7 @@ class BC
             }
         }
 
-        return static::add($retval, 0, $scale);
+        return static::intval($retval, $scale);
     }
 
     public static function modfrac($a, $b, $scale = null)
@@ -168,7 +175,7 @@ class BC
     {
         $scale = static::getScale($scale);
 
-        return static::add(static::epow(static::mul(static::ln($base, static::$internalScale), $pow, static::$internalScale), static::$internalScale), 0, $scale);
+        return static::intval(static::epow(static::mul(static::ln($base, static::$internalScale), $pow, static::$internalScale), static::$internalScale), $scale);
     }
 
     public static function root($base, $root, $scale = null)
@@ -235,10 +242,10 @@ class BC
                         case '*':   $result = static::mul($opTrio[1], $opTrio[3], $scale); break;
                         case '/':   $result = static::div($opTrio[1], $opTrio[3], $scale); break;
                         case '\\':  $result = static::div($opTrio[1], $opTrio[3], 0); break;
-                        case '%':   $result = static::mod($opTrio[1], $opTrio[3], $scale); break;
+                        case '%':   $result = static::mod($opTrio[1], $opTrio[3]); break;
                         case '%%':  $result = static::modfrac($opTrio[1], $opTrio[3], $scale); break;
                         case '\\*': $result = static::mul(static::div($opTrio[1], $opTrio[3], 0), $opTrio[3], $scale); break;
-                        case '-%':  $result = static::sub($opTrio[1], static::mod($opTrio[1], $opTrio[3], 0), $scale); break;
+                        case '-%':  $result = static::sub($opTrio[1], static::mod($opTrio[1], $opTrio[3]), $scale); break;
                         case '**':  $result = static::pow($opTrio[1], $opTrio[3], $scale); break;
                         case '^':   $result = static::powfrac($opTrio[1], $opTrio[3], $scale); break;
                         case '==':

@@ -32,6 +32,7 @@ class BCSpec extends ObjectBehavior
         $this::scale(18);
         $this::epow(1)->shouldBeLike('2.718281828459000000');
         $this::fact(5)->shouldBeLike(120);
+        $this::intval(1.5)->shouldBeLike(1);
         $this::ln(1)->shouldBeLike(0);
         $this::log(1)->shouldBeLike(0);
         $this::max([5, 1, 7])->shouldBeLike(7);

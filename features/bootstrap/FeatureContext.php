@@ -67,8 +67,11 @@ class FeatureContext implements Context, SnippetAcceptingContext
      */
     public function theReturnValueShouldBe($arg1)
     {
-        if ($arg1 == 'true') $arg1 = true;
-        elseif ($arg1 == 'false') $arg1 = false;
+        if ($arg1 == 'true') {
+            $arg1 = true;
+        } elseif ($arg1 == 'false') {
+            $arg1 = false;
+        }
 
         PHPUnit_Framework_Assert::assertEquals($arg1, $this->latest);
     }

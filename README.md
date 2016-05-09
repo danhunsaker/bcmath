@@ -43,6 +43,7 @@ present in the extension:
 
 - `BC::epow()` raises _e_ to the argument's power.
 - `BC::fact()` calculates the factorial of the argument.
+- `BC::intval()` truncates the fractional portion of the argument, if any.
 - `BC::ln()` gives the natural logarithm of the argument.
 - `BC::log()` gives the base 10 logarithm of the argument (uses ln $val/ln 10).
 - `BC::max()` returns the largest value in an array (the first argument).
