@@ -6,6 +6,7 @@ BC::math
 
 [![Latest Version](https://img.shields.io/github/release/danhunsaker/bcmath.svg?style=flat-square)](https://github.com/danhunsaker/bcmath/releases)
 [![Build Status](https://img.shields.io/travis/danhunsaker/bcmath.svg?style=flat-square)](https://travis-ci.org/danhunsaker/bcmath)
+[![Codecov](https://img.shields.io/codecov/c/github/danhunsaker/bcmath.svg?style=flat-square)](https://codecov.io/gh/danhunsaker/bcmath)
 [![Total Downloads](https://img.shields.io/packagist/dt/danhunsaker/bcmath.svg?style=flat-square)](https://packagist.org/packages/danhunsaker/bcmath)
 
 PHP bcmath as a static class, with several enhancements.
