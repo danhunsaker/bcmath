@@ -189,6 +189,7 @@ class BCTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1, BC::parse('1 % 5'));
         $this->assertEquals(1.5, BC::parse('5.5 %% 2'));
         $this->assertEquals(4, BC::parse('5.5 \* 2'));
+        $this->assertEquals(4.5, BC::parse('5.5 -% 2'));
         $this->assertEquals(1, BC::parse('4 ** .5'));
         $this->assertEquals(2, BC::parse('4 ^ .5'));
         $this->assertEquals(false, BC::parse('1 = 5'));

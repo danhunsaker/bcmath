@@ -55,6 +55,7 @@ class BCSpec extends ObjectBehavior
         $this::parse('1 % 5')->shouldBeLike(1);
         $this::parse('5.5 %% 2')->shouldBeLike(1.5);
         $this::parse('5.5 \* 2')->shouldBeLike(4);
+        $this::parse('5.5 -% 2')->shouldBeLike(4.5);
         $this::parse('4 ** .5')->shouldBeLike(1);
         $this::parse('4 ^ .5')->shouldBeLike(2);
         $this::parse('1 = 5')->shouldBeLike(false);

@@ -218,7 +218,7 @@ class BC
 
         $operations = [
             '\^|\*\*',
-            '\*|\\\\|\\\\\*|\/|\%{1,2}',
+            '\*|\\\\|\\\\\*|\/|\%{1,2}|\-\%',
             '[\+\-]',
             '<|=|>|<=|==|>=|!=|<>',
             '(?:\||&|~){1,2}',
@@ -235,9 +235,10 @@ class BC
                         case '*':   $result = static::mul($opTrio[1], $opTrio[3], $scale); break;
                         case '/':   $result = static::div($opTrio[1], $opTrio[3], $scale); break;
                         case '\\':  $result = static::div($opTrio[1], $opTrio[3], 0); break;
-                        case '\\*': $result = static::mul(static::div($opTrio[1], $opTrio[3], 0), $opTrio[3], $scale); break;
                         case '%':   $result = static::mod($opTrio[1], $opTrio[3], $scale); break;
                         case '%%':  $result = static::modfrac($opTrio[1], $opTrio[3], $scale); break;
+                        case '\\*': $result = static::mul(static::div($opTrio[1], $opTrio[3], 0), $opTrio[3], $scale); break;
+                        case '-%':  $result = static::sub($opTrio[1], static::mod($opTrio[1], $opTrio[3], 0), $scale); break;
                         case '**':  $result = static::pow($opTrio[1], $opTrio[3], $scale); break;
                         case '^':   $result = static::powfrac($opTrio[1], $opTrio[3], $scale); break;
                         case '==':

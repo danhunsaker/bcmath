@@ -66,9 +66,10 @@ your expressions:
 - `BC::add(a, b)`                => `'a + b'`
 - `BC::div(a, b)`                => `'a / b'`
 - `BC::div(a, b, 0)`             => `'a \ b'`
-- `BC::mul(BC::div(a, b, 0), b)` => `'a \* b'`
 - `BC::mod(a, b)`                => `'a % b'`
 - `BC::modfrac(a, b)`            => `'a %% b'`
+- `BC::mul(BC::div(a, b, 0), b)` => `'a \* b'`
+- `BC::sub(a, BC::mod(a, b))`    => `'a -% b'`
 - `BC::mul(a, b)`                => `'a * b'`
 - `BC::pow(a, b)`                => `'a ** b'`
 - `BC::powfrac(a, b)`            => `'a ^ b'`
