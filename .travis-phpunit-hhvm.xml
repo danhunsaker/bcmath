@@ -2,7 +2,7 @@
     <phpunit bootstrap="vendor/autoload.php" convertNoticesToExceptions="false" processIsolation="true"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/4.5/phpunit.xsd">
         <testsuites>
-            <testsuite name="Calends PHPUnit Tests">
+            <testsuite name="BC::math PHPUnit Tests">
                 <directory>tests/</directory>
             </testsuite>
         </testsuites>
