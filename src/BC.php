@@ -2,18 +2,41 @@
 
 namespace Danhunsaker;
 
+/**
+ * Class BC
+ * @package Danhunsaker
+ */
 class BC
 {
+    /**
+     * @var int
+     */
     protected static $internalScale = 100;
 
+    /**
+     * @var int
+     */
     protected static $iterations = 50;
 
+    /**
+     * @var null
+     */
     protected static $scale = null;
 
+    /**
+     * @var null
+     */
     protected $instanceScale = null;
 
     // Extension-provided methods
 
+    /**
+     * Add two arbitrary precision numbers
+     * @param $a
+     * @param $b
+     * @param null $scale
+     * @return string
+     */
     public static function add($a, $b, $scale = null)
     {
         $scale = static::getScale($scale);
@@ -21,6 +44,13 @@ class BC
         return bcadd($a, $b, $scale);
     }
 
+    /**
+     * Compare two arbitrary precision numbers
+     * @param $a
+     * @param $b
+     * @param null $scale
+     * @return int
+     */
     public static function comp($a, $b, $scale = null)
     {
         $scale = static::getScale($scale);
@@ -28,6 +58,13 @@ class BC
         return bccomp($a, $b, $scale);
     }
 
+    /**
+     * Divide ($a / $b) two arbitrary precision numbers
+     * @param $a
+     * @param $b
+     * @param null $scale
+     * @return string
+     */
     public static function div($a, $b, $scale = null)
     {
         $scale = static::getScale($scale);
@@ -35,11 +72,24 @@ class BC
         return bcdiv($a, $b, $scale);
     }
 
+    /**
+     * Get modulus of an arbitrary precision number
+     * @param $a
+     * @param $b
+     * @return string
+     */
     public static function mod($a, $b)
     {
         return bcmod(static::intval($a, 0), static::intval($b, 0));
     }
 
+    /**
+     * Multiply ($a * $b) two arbitrary precision numbers
+     * @param $a
+     * @param $b
+     * @param null $scale
+     * @return string
+     */
     public static function mul($a, $b, $scale = null)
     {
         $scale = static::getScale($scale);
@@ -47,6 +97,13 @@ class BC
         return bcmul($a, $b, $scale);
     }
 
+    /**
+     * Raise an arbitrary precision number to another
+     * @param $base
+     * @param $power
+     * @param null $scale
+     * @return string
+     */
     public static function pow($base, $power, $scale = null)
     {
         $scale = static::getScale($scale);
@@ -54,6 +111,14 @@ class BC
         return bcpow($base, bcadd($power, 0, 0), $scale);
     }
 
+    /**
+     * Raise an arbitrary precision number to another, reduced by a specified modulus
+     * @param $base
+     * @param $power
+     * @param $modulo
+     * @param null $scale
+     * @return string
+     */
     public static function powmod($base, $power, $modulo, $scale = null)
     {
         $scale = static::getScale($scale);
@@ -61,6 +126,11 @@ class BC
         return bcpowmod($base, bcadd($power, 0, 0), $modulo, $scale);
     }
 
+    /**
+     * Set default scale parameter for all bc math functions
+     * @param $scale
+     * @return bool
+     */
     public static function scale($scale)
     {
         if ($retval = bcscale($scale)) {
@@ -70,6 +140,12 @@ class BC
         return $retval;
     }
 
+    /**
+     * Get the square root of an arbitrary precision number
+     * @param $val
+     * @param null $scale
+     * @return string
+     */
     public static function sqrt($val, $scale = null)
     {
         $scale = static::getScale($scale);
@@ -77,6 +153,13 @@ class BC
         return bcsqrt($val, $scale);
     }
 
+    /**
+     * Subtract one arbitrary precision number from another
+     * @param $a
+     * @param $b
+     * @param null $scale
+     * @return string
+     */
     public static function sub($a, $b, $scale = null)
     {
         $scale = static::getScale($scale);
@@ -86,6 +169,12 @@ class BC
 
     // Extended (convenience) methods
 
+    /**
+     * Raises e to the argument's power.
+     * @param $val
+     * @param null $scale
+     * @return string
+     */
     public static function epow($val, $scale = null)
     {
         $scale = static::getScale($scale);
@@ -99,6 +188,12 @@ class BC
         return static::add($retval, 0, $scale);
     }
 
+    /**
+     * Calculates the factorial of the argument.
+     * @param $val
+     * @param null $scale
+     * @return string
+     */
     public static function fact($val, $scale = null)
     {
         $scale = static::getScale($scale);
@@ -106,6 +201,12 @@ class BC
         return $val == '1' ? '1' : static::add(static::mul($val, static::fact(static::sub($val, '1'), static::$internalScale), static::$internalScale), 0, $scale);
     }
 
+    /**
+     * Truncates the fractional portion of the argument, if any.
+     * @param $val
+     * @param null $scale
+     * @return string
+     */
     public static function intval($val, $scale = null)
     {
         $scale = static::getScale($scale);
@@ -113,6 +214,12 @@ class BC
         return static::add(static::add($val, 0, 0), 0, $scale);
     }
 
+    /**
+     * Gives the natural logarithm of the argument.
+     * @param $val
+     * @param null $scale
+     * @return string
+     */
     public static function ln($val, $scale = null)
     {
         $scale = static::getScale($scale);
@@ -129,6 +236,12 @@ class BC
         return static::add(static::mul(2, $retval, static::$internalScale), 0, $scale);
     }
 
+    /**
+     *  Gives the base 10 logarithm of the argument (uses ln $val/ln 10).
+     * @param $val
+     * @param null $scale
+     * @return string
+     */
     public static function log($val, $scale = null)
     {
         $scale = static::getScale($scale);
@@ -136,6 +249,12 @@ class BC
         return static::add(static::div(static::ln($val, static::$internalScale), static::ln(10, static::$internalScale), static::$internalScale), 0, $scale);
     }
 
+    /**
+     * Returns the largest value in an array (the first argument).
+     * @param array $args
+     * @param null $scale
+     * @return string
+     */
     public static function max(array $args, $scale = null)
     {
         $scale = static::getScale($scale);
@@ -150,6 +269,12 @@ class BC
         return static::add($retval, 0, $scale);
     }
 
+    /**
+     * Returns the smallest value in an array (the first argument).
+     * @param array $args
+     * @param null $scale
+     * @return string
+     */
     public static function min(array $args, $scale = null)
     {
         $scale = static::getScale($scale);
@@ -164,6 +289,14 @@ class BC
         return static::add($retval, 0, $scale);
     }
 
+    /**
+     * Behaves exactly like BC::mod(), except it will return the fractional part of any remainder
+     * as well as the integer part.
+     * @param $a
+     * @param $b
+     * @param null $scale
+     * @return string
+     */
     public static function modfrac($a, $b, $scale = null)
     {
         $scale = static::getScale($scale);
@@ -171,6 +304,13 @@ class BC
         return static::sub($a, static::mul(static::div($a, $b, 0), $b, static::$internalScale), $scale);
     }
 
+    /**
+     * Supports fractional exponents, allowing roots other than the square to be calculated.
+     * @param $base
+     * @param $pow
+     * @param null $scale
+     * @return string
+     */
     public static function powfrac($base, $pow, $scale = null)
     {
         $scale = static::getScale($scale);
@@ -178,6 +318,13 @@ class BC
         return static::add(static::epow(static::mul(static::ln($base, static::$internalScale), $pow, static::$internalScale), static::$internalScale), 0, $scale);
     }
 
+    /**
+     *  Complement to BC::powfrac(), and is in fact just a convenience wrapper for it.
+     * @param $base
+     * @param $root
+     * @param null $scale
+     * @return string
+     */
     public static function root($base, $root, $scale = null)
     {
         $scale = static::getScale($scale);
@@ -185,6 +332,12 @@ class BC
         return static::powfrac($base, static::div(1, $root, static::$internalScale), $scale);
     }
 
+    /**
+     * Rounds a value to a given scale.
+     * @param $val
+     * @param null $scale
+     * @return string
+     */
     public static function round($val, $scale = null)
     {
         $scale = static::getScale($scale);
@@ -203,7 +356,8 @@ class BC
      * Parse a mathematical expression into calls to BC::math methods
      *
      * Will also allow you to use {tags} to represent variable values
-     *
+     * and will also allow you to use () to change priority operation
+     * 
      * @param string $formula The expression to evaluate
      * @param array|object $values An array of values to substitute into the expression
      * @param integer $scale The scale to pass to BC::math methods
@@ -276,6 +430,10 @@ class BC
 
     // Internal utility methods
 
+    /**
+     * @param $scale
+     * @return null
+     */
     protected static function getScale($scale)
     {
         if (is_null(static::$scale)) {
