@@ -10,22 +10,22 @@ namespace Danhunsaker;
 class BC
 {
     /**
-     * @var int
+     * @var integer
      */
     protected static $internalScale = 100;
 
     /**
-     * @var int
+     * @var integer
      */
     protected static $iterations = 50;
 
     /**
-     * @var null
+     * @var integer
      */
     protected static $scale = null;
 
     /**
-     * @var null
+     * @var integer
      */
     protected $instanceScale = null;
 
@@ -34,10 +34,10 @@ class BC
     /**
      * Add two arbitrary precision numbers
      *
-     * @param $a
-     * @param $b
-     * @param null $scale
-     * @return string
+     * @param string|integer|float $a
+     * @param string|integer|float $b
+     * @param integer $scale
+     * @return string|integer|float
      */
     public static function add($a, $b, $scale = null)
     {
@@ -49,10 +49,10 @@ class BC
     /**
      * Compare two arbitrary precision numbers
      *
-     * @param $a
-     * @param $b
-     * @param null $scale
-     * @return int
+     * @param string|integer|float $a
+     * @param string|integer|float $b
+     * @param integer $scale
+     * @return string|integer|float
      */
     public static function comp($a, $b, $scale = null)
     {
@@ -64,10 +64,10 @@ class BC
     /**
      * Divide ($a / $b) two arbitrary precision numbers
      *
-     * @param $a
-     * @param $b
-     * @param null $scale
-     * @return string
+     * @param string|integer|float $a
+     * @param string|integer|float $b
+     * @param integer $scale
+     * @return string|integer|float
      */
     public static function div($a, $b, $scale = null)
     {
@@ -79,9 +79,9 @@ class BC
     /**
      * Get modulus of an arbitrary precision number
      *
-     * @param $a
-     * @param $b
-     * @return string
+     * @param string|integer|float $a
+     * @param string|integer|float $b
+     * @return string|integer|float
      */
     public static function mod($a, $b)
     {
@@ -91,10 +91,10 @@ class BC
     /**
      * Multiply ($a * $b) two arbitrary precision numbers
      *
-     * @param $a
-     * @param $b
-     * @param null $scale
-     * @return string
+     * @param string|integer|float $a
+     * @param string|integer|float $b
+     * @param integer $scale
+     * @return string|integer|float
      */
     public static function mul($a, $b, $scale = null)
     {
@@ -106,10 +106,10 @@ class BC
     /**
      * Raise an arbitrary precision number to another
      *
-     * @param $base
-     * @param $power
-     * @param null $scale
-     * @return string
+     * @param string|integer|float $base
+     * @param string|integer|float $power
+     * @param integer $scale
+     * @return string|integer|float
      */
     public static function pow($base, $power, $scale = null)
     {
@@ -121,11 +121,11 @@ class BC
     /**
      * Raise an arbitrary precision number to another, reduced by a specified modulus
      *
-     * @param $base
-     * @param $power
-     * @param $modulo
-     * @param null $scale
-     * @return string
+     * @param string|integer|float $base
+     * @param string|integer|float $power
+     * @param string|integer|float $modulo
+     * @param integer $scale
+     * @return string|integer|float 
      */
     public static function powmod($base, $power, $modulo, $scale = null)
     {
@@ -137,7 +137,7 @@ class BC
     /**
      * Set default scale parameter for all bc math functions
      *
-     * @param $scale
+     * @param integer $scale
      * @return bool
      */
     public static function scale($scale)
@@ -152,9 +152,9 @@ class BC
     /**
      * Get the square root of an arbitrary precision number
      *
-     * @param $val
-     * @param null $scale
-     * @return string
+     * @param string|integer|float $val
+     * @param integer $scale
+     * @return string|integer|float
      */
     public static function sqrt($val, $scale = null)
     {
@@ -166,10 +166,10 @@ class BC
     /**
      * Subtract one arbitrary precision number from another
      *
-     * @param $a
-     * @param $b
-     * @param null $scale
-     * @return string
+     * @param string|integer|float $a
+     * @param string|integer|float $b
+     * @param integer $scale
+     * @return string|integer|float
      */
     public static function sub($a, $b, $scale = null)
     {
@@ -183,9 +183,9 @@ class BC
     /**
      * Raises e to the argument's power.
      *
-     * @param $val
-     * @param null $scale
-     * @return string
+     * @param string|integer|float $val
+     * @param integer $scale
+     * @return string|integer|float
      */
     public static function epow($val, $scale = null)
     {
@@ -203,9 +203,9 @@ class BC
     /**
      * Calculates the factorial of the argument.
      *
-     * @param $val
-     * @param null $scale
-     * @return string
+     * @param string|integer|float $val
+     * @param integer $scale
+     * @return string|integer|float
      */
     public static function fact($val, $scale = null)
     {
@@ -217,9 +217,9 @@ class BC
     /**
      * Truncates the fractional portion of the argument, if any.
      *
-     * @param $val
-     * @param null $scale
-     * @return string
+     * @param string|integer|float $val
+     * @param integer $scale
+     * @return string|integer|float
      */
     public static function intval($val, $scale = null)
     {
@@ -231,9 +231,9 @@ class BC
     /**
      * Gives the natural logarithm of the argument.
      *
-     * @param $val
-     * @param null $scale
-     * @return string
+     * @param string|integer|float $val
+     * @param integer $scale
+     * @return string|integer|float
      */
     public static function ln($val, $scale = null)
     {
@@ -254,9 +254,9 @@ class BC
     /**
      *  Gives the base 10 logarithm of the argument (uses ln $val/ln 10).
      *
-     * @param $val
-     * @param null $scale
-     * @return string
+     * @param string|integer|float $val
+     * @param integer $scale
+     * @return string|integer|float
      */
     public static function log($val, $scale = null)
     {
@@ -269,8 +269,8 @@ class BC
      * Returns the largest value in an array (the first argument).
      *
      * @param array $args
-     * @param null $scale
-     * @return string
+     * @param integer $scale
+     * @return string|integer|float
      */
     public static function max(array $args, $scale = null)
     {
@@ -290,8 +290,8 @@ class BC
      * Returns the smallest value in an array (the first argument).
      *
      * @param array $args
-     * @param null $scale
-     * @return string
+     * @param integer $scale
+     * @return string|integer|float
      */
     public static function min(array $args, $scale = null)
     {
@@ -311,10 +311,10 @@ class BC
      * Behaves exactly like BC::mod(), except it will return the fractional part of any remainder
      * as well as the integer part.
      *
-     * @param $a
-     * @param $b
-     * @param null $scale
-     * @return string
+     * @param string|integer|float $a
+     * @param string|integer|float $b
+     * @param integer $scale
+     * @return string|integer|float
      */
     public static function modfrac($a, $b, $scale = null)
     {
@@ -326,10 +326,10 @@ class BC
     /**
      * Supports fractional exponents, allowing roots other than the square to be calculated.
      *
-     * @param $base
-     * @param $pow
-     * @param null $scale
-     * @return string
+     * @param string|integer|float $base
+     * @param string|integer|float $pow
+     * @param integer $scale
+     * @return string|integer|float
      */
     public static function powfrac($base, $pow, $scale = null)
     {
@@ -341,10 +341,10 @@ class BC
     /**
      * Complement to BC::powfrac(), and is in fact just a convenience wrapper for it.
      *
-     * @param $base
-     * @param $root
-     * @param null $scale
-     * @return string
+     * @param string|integer|float $base
+     * @param string|integer|float $root
+     * @param integer $scale
+     * @return string|integer|float
      */
     public static function root($base, $root, $scale = null)
     {
@@ -356,9 +356,9 @@ class BC
     /**
      * Rounds a value to a given scale.
      *
-     * @param $val
-     * @param null $scale
-     * @return string
+     * @param string|integer|float $val
+     * @param integer $scale
+     * @return string|integer|float
      */
     public static function round($val, $scale = null)
     {
@@ -463,19 +463,19 @@ class BC
     /**
      * Retrieve a scale value, using the one passed, or falling back to the internal one
      *
-     * @param $scale
-     * @return null
+     * @param integer $scale
+     * @return integer
      */
     protected static function getScale($scale)
     {
         if (is_null(static::$scale)) {
-            static::$scale = ini_get('bcmath.scale');
+            static::$scale = int_val(ini_get('bcmath.scale'));
         }
 
         if (is_null($scale)) {
             $scale = static::$scale;
         }
 
-        return $scale;
+        return int_val($scale);
     }
 }
