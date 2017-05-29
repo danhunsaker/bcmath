@@ -36,7 +36,7 @@ class BC
      *
      * @param string|integer|float $a
      * @param string|integer|float $b
-     * @param integer $scale
+     * @param integer|null $scale
      * @return string|integer|float
      */
     public static function add($a, $b, $scale = null)
@@ -51,7 +51,7 @@ class BC
      *
      * @param string|integer|float $a
      * @param string|integer|float $b
-     * @param integer $scale
+     * @param integer|null $scale
      * @return string|integer|float
      */
     public static function comp($a, $b, $scale = null)
@@ -66,7 +66,7 @@ class BC
      *
      * @param string|integer|float $a
      * @param string|integer|float $b
-     * @param integer $scale
+     * @param integer|null $scale
      * @return string|integer|float
      */
     public static function div($a, $b, $scale = null)
@@ -93,7 +93,7 @@ class BC
      *
      * @param string|integer|float $a
      * @param string|integer|float $b
-     * @param integer $scale
+     * @param integer|null $scale
      * @return string|integer|float
      */
     public static function mul($a, $b, $scale = null)
@@ -108,7 +108,7 @@ class BC
      *
      * @param string|integer|float $base
      * @param string|integer|float $power
-     * @param integer $scale
+     * @param integer|null $scale
      * @return string|integer|float
      */
     public static function pow($base, $power, $scale = null)
@@ -124,7 +124,7 @@ class BC
      * @param string|integer|float $base
      * @param string|integer|float $power
      * @param string|integer|float $modulo
-     * @param integer $scale
+     * @param integer|null $scale
      * @return string|integer|float 
      */
     public static function powmod($base, $power, $modulo, $scale = null)
@@ -137,7 +137,7 @@ class BC
     /**
      * Set default scale parameter for all bc math functions
      *
-     * @param integer $scale
+     * @param integer|null $scale
      * @return bool
      */
     public static function scale($scale)
@@ -153,7 +153,7 @@ class BC
      * Get the square root of an arbitrary precision number
      *
      * @param string|integer|float $val
-     * @param integer $scale
+     * @param integer|null $scale
      * @return string|integer|float
      */
     public static function sqrt($val, $scale = null)
@@ -168,7 +168,7 @@ class BC
      *
      * @param string|integer|float $a
      * @param string|integer|float $b
-     * @param integer $scale
+     * @param integer|null $scale
      * @return string|integer|float
      */
     public static function sub($a, $b, $scale = null)
@@ -184,7 +184,7 @@ class BC
      * Raises e to the argument's power.
      *
      * @param string|integer|float $val
-     * @param integer $scale
+     * @param integer|null $scale
      * @return string|integer|float
      */
     public static function epow($val, $scale = null)
@@ -204,7 +204,7 @@ class BC
      * Calculates the factorial of the argument.
      *
      * @param string|integer|float $val
-     * @param integer $scale
+     * @param integer|null $scale
      * @return string|integer|float
      */
     public static function fact($val, $scale = null)
@@ -218,7 +218,7 @@ class BC
      * Truncates the fractional portion of the argument, if any.
      *
      * @param string|integer|float $val
-     * @param integer $scale
+     * @param integer|null $scale
      * @return string|integer|float
      */
     public static function intval($val, $scale = null)
@@ -232,7 +232,7 @@ class BC
      * Gives the natural logarithm of the argument.
      *
      * @param string|integer|float $val
-     * @param integer $scale
+     * @param integer|null $scale
      * @return string|integer|float
      */
     public static function ln($val, $scale = null)
@@ -255,7 +255,7 @@ class BC
      *  Gives the base 10 logarithm of the argument (uses ln $val/ln 10).
      *
      * @param string|integer|float $val
-     * @param integer $scale
+     * @param integer|null $scale
      * @return string|integer|float
      */
     public static function log($val, $scale = null)
@@ -269,7 +269,7 @@ class BC
      * Returns the largest value in an array (the first argument).
      *
      * @param array $args
-     * @param integer $scale
+     * @param integer|null $scale
      * @return string|integer|float
      */
     public static function max(array $args, $scale = null)
@@ -290,7 +290,7 @@ class BC
      * Returns the smallest value in an array (the first argument).
      *
      * @param array $args
-     * @param integer $scale
+     * @param integer|null $scale
      * @return string|integer|float
      */
     public static function min(array $args, $scale = null)
@@ -313,7 +313,7 @@ class BC
      *
      * @param string|integer|float $a
      * @param string|integer|float $b
-     * @param integer $scale
+     * @param integer|null $scale
      * @return string|integer|float
      */
     public static function modfrac($a, $b, $scale = null)
@@ -328,7 +328,7 @@ class BC
      *
      * @param string|integer|float $base
      * @param string|integer|float $pow
-     * @param integer $scale
+     * @param integer|null $scale
      * @return string|integer|float
      */
     public static function powfrac($base, $pow, $scale = null)
@@ -343,7 +343,7 @@ class BC
      *
      * @param string|integer|float $base
      * @param string|integer|float $root
-     * @param integer $scale
+     * @param integer|null $scale
      * @return string|integer|float
      */
     public static function root($base, $root, $scale = null)
@@ -357,7 +357,7 @@ class BC
      * Rounds a value to a given scale.
      *
      * @param string|integer|float $val
-     * @param integer $scale
+     * @param integer|null $scale
      * @return string|integer|float
      */
     public static function round($val, $scale = null)
@@ -390,7 +390,7 @@ class BC
      * 
      * @param string $formula The expression to evaluate
      * @param array|object $values An associative array of values to substitute into the expression
-     * @param integer $scale The scale to pass to BC::math methods
+     * @param integer|null $scale The scale to pass to BC::math methods
      * @return string|integer|float|boolean
      */
     public static function parse($formula, $values = [], $scale = null)
@@ -463,7 +463,7 @@ class BC
     /**
      * Retrieve a scale value, using the one passed, or falling back to the internal one
      *
-     * @param integer $scale
+     * @param integer|null $scale
      * @return integer
      */
     protected static function getScale($scale)
