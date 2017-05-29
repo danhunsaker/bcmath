@@ -469,13 +469,13 @@ class BC
     protected static function getScale($scale)
     {
         if (is_null(static::$scale)) {
-            static::$scale = int_val(ini_get('bcmath.scale'));
+            static::$scale = intval(ini_get('bcmath.scale'));
         }
 
         if (is_null($scale)) {
             $scale = static::$scale;
         }
 
-        return int_val($scale);
+        return intval($scale);
     }
 }
