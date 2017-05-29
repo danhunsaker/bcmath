@@ -4,6 +4,7 @@ namespace Danhunsaker;
 
 /**
  * Class BC
+ *
  * @package Danhunsaker
  */
 class BC
@@ -32,6 +33,7 @@ class BC
 
     /**
      * Add two arbitrary precision numbers
+     *
      * @param $a
      * @param $b
      * @param null $scale
@@ -46,6 +48,7 @@ class BC
 
     /**
      * Compare two arbitrary precision numbers
+     *
      * @param $a
      * @param $b
      * @param null $scale
@@ -60,6 +63,7 @@ class BC
 
     /**
      * Divide ($a / $b) two arbitrary precision numbers
+     *
      * @param $a
      * @param $b
      * @param null $scale
@@ -74,6 +78,7 @@ class BC
 
     /**
      * Get modulus of an arbitrary precision number
+     *
      * @param $a
      * @param $b
      * @return string
@@ -85,6 +90,7 @@ class BC
 
     /**
      * Multiply ($a * $b) two arbitrary precision numbers
+     *
      * @param $a
      * @param $b
      * @param null $scale
@@ -99,6 +105,7 @@ class BC
 
     /**
      * Raise an arbitrary precision number to another
+     *
      * @param $base
      * @param $power
      * @param null $scale
@@ -113,6 +120,7 @@ class BC
 
     /**
      * Raise an arbitrary precision number to another, reduced by a specified modulus
+     *
      * @param $base
      * @param $power
      * @param $modulo
@@ -128,6 +136,7 @@ class BC
 
     /**
      * Set default scale parameter for all bc math functions
+     *
      * @param $scale
      * @return bool
      */
@@ -142,6 +151,7 @@ class BC
 
     /**
      * Get the square root of an arbitrary precision number
+     *
      * @param $val
      * @param null $scale
      * @return string
@@ -155,6 +165,7 @@ class BC
 
     /**
      * Subtract one arbitrary precision number from another
+     *
      * @param $a
      * @param $b
      * @param null $scale
@@ -171,6 +182,7 @@ class BC
 
     /**
      * Raises e to the argument's power.
+     *
      * @param $val
      * @param null $scale
      * @return string
@@ -190,6 +202,7 @@ class BC
 
     /**
      * Calculates the factorial of the argument.
+     *
      * @param $val
      * @param null $scale
      * @return string
@@ -203,6 +216,7 @@ class BC
 
     /**
      * Truncates the fractional portion of the argument, if any.
+     *
      * @param $val
      * @param null $scale
      * @return string
@@ -216,6 +230,7 @@ class BC
 
     /**
      * Gives the natural logarithm of the argument.
+     *
      * @param $val
      * @param null $scale
      * @return string
@@ -238,6 +253,7 @@ class BC
 
     /**
      *  Gives the base 10 logarithm of the argument (uses ln $val/ln 10).
+     *
      * @param $val
      * @param null $scale
      * @return string
@@ -251,6 +267,7 @@ class BC
 
     /**
      * Returns the largest value in an array (the first argument).
+     *
      * @param array $args
      * @param null $scale
      * @return string
@@ -271,6 +288,7 @@ class BC
 
     /**
      * Returns the smallest value in an array (the first argument).
+     *
      * @param array $args
      * @param null $scale
      * @return string
@@ -292,6 +310,7 @@ class BC
     /**
      * Behaves exactly like BC::mod(), except it will return the fractional part of any remainder
      * as well as the integer part.
+     *
      * @param $a
      * @param $b
      * @param null $scale
@@ -306,6 +325,7 @@ class BC
 
     /**
      * Supports fractional exponents, allowing roots other than the square to be calculated.
+     *
      * @param $base
      * @param $pow
      * @param null $scale
@@ -319,7 +339,8 @@ class BC
     }
 
     /**
-     *  Complement to BC::powfrac(), and is in fact just a convenience wrapper for it.
+     * Complement to BC::powfrac(), and is in fact just a convenience wrapper for it.
+     *
      * @param $base
      * @param $root
      * @param null $scale
@@ -334,6 +355,7 @@ class BC
 
     /**
      * Rounds a value to a given scale.
+     *
      * @param $val
      * @param null $scale
      * @return string
@@ -355,11 +377,19 @@ class BC
     /**
      * Parse a mathematical expression into calls to BC::math methods
      *
-     * Will also allow you to use {tags} to represent variable values
-     * and will also allow you to use () to change priority operation
+     * Honors order of operations:
+     * - Parentheses
+     * - Exponents (and Roots)
+     * - Multiplication and Division
+     * - Addition and Subtraction
+     * - Comparison (Equality/Inequality)
+     * - Booleans
+     *
+     * Will also allow you to use {tags} to represent variable values;
+     * tags not found in $values will be treated as 0
      * 
      * @param string $formula The expression to evaluate
-     * @param array|object $values An array of values to substitute into the expression
+     * @param array|object $values An associative array of values to substitute into the expression
      * @param integer $scale The scale to pass to BC::math methods
      * @return string|integer|float|boolean
      */
@@ -431,6 +461,8 @@ class BC
     // Internal utility methods
 
     /**
+     * Retrieve a scale value, using the one passed, or falling back to the internal one
+     *
      * @param $scale
      * @return null
      */
