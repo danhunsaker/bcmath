@@ -393,7 +393,7 @@ class BC
      * @param integer|null $scale The scale to pass to BC::math methods
      * @return string|integer|float|boolean
      */
-    public static function parse($formula, $values = [], $scale = null)
+    public static function parse($formula, $values = [], $scale = null, $returnBool = false)
     {
         $scale = static::getScale($scale);
 
@@ -454,7 +454,9 @@ class BC
             // error_log("Replacing {$parenthetical[0]} with {$parenthetical[1]} in {$formula}");
             $formula = str_replace($parenthetical[0], $parenthetical[1], $formula);
         }
-
+        if($returnBool) {
+            return (bool)$formula;
+        }
         return $formula;
     }
 
