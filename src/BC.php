@@ -433,17 +433,17 @@ class BC
                         case '**':  $result = static::pow($opTrio[1], $opTrio[3], $scale); break;
                         case '^':   $result = static::powfrac($opTrio[1], $opTrio[3], $scale); break;
                         case '==':
-                        case '=':   $result = static::comp($opTrio[1], $opTrio[3], $scale) == 0; break;
-                        case '>':   $result = static::comp($opTrio[1], $opTrio[3], $scale) >  0; break;
-                        case '<':   $result = static::comp($opTrio[1], $opTrio[3], $scale) <  0; break;
-                        case '>=':  $result = static::comp($opTrio[1], $opTrio[3], $scale) >= 0; break;
-                        case '<=':  $result = static::comp($opTrio[1], $opTrio[3], $scale) <= 0; break;
+                        case '=':   $result = static::comp($opTrio[1], $opTrio[3], $scale) == 0 ? 1:0; break;
+                        case '>':   $result = static::comp($opTrio[1], $opTrio[3], $scale) >  0 ? 1:0; break;
+                        case '<':   $result = static::comp($opTrio[1], $opTrio[3], $scale) <  0 ? 1:0; break;
+                        case '>=':  $result = static::comp($opTrio[1], $opTrio[3], $scale) >= 0 ? 1:0; break;
+                        case '<=':  $result = static::comp($opTrio[1], $opTrio[3], $scale) <= 0 ? 1:0; break;
                         case '<>':
-                        case '!=':  $result = static::comp($opTrio[1], $opTrio[3], $scale) != 0; break;
+                        case '!=':  $result = static::comp($opTrio[1], $opTrio[3], $scale) != 0 ? 1:0; break;
                         case '|':
-                        case '||':  $result = ($opTrio[1] || $opTrio[3]); break;
+                        case '||':  $result = ($opTrio[1] || $opTrio[3]) ? 1:0; break;
                         case '&':
-                        case '&&':  $result = ($opTrio[1] && $opTrio[3]); break;
+                        case '&&':  $result = ($opTrio[1] && $opTrio[3]) ? 1:0; break;
                         case '~':
                         case '~~':  $result = (bool) ((bool) $opTrio[1] ^ (bool) $opTrio[3]); break;
                     }
