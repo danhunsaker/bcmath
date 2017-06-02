@@ -225,6 +225,7 @@ class BCTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('1', BC::parse('(1 + 5) / 4', null, 0));
         $this->assertEquals('1.5', BC::parse('({a} + {b}) / {c}', ['a' => 1, 'b' => 5, 'c' => 4]));
         $this->assertEquals('1', BC::parse('({a} + {b}) / {c}', ['a' => 1, 'b' => 5, 'c' => 4], 0));
+        $this->assertTrue(BC::parse('1', [], 0, true));
     }
 
     /**
