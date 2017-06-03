@@ -454,9 +454,9 @@ class BC
             // error_log("Replacing {$parenthetical[0]} with {$parenthetical[1]} in {$formula}");
             $formula = str_replace($parenthetical[0], $parenthetical[1], $formula);
         }
-        /*if($returnBool) {
+        if($returnBool) {
             return (bool)$formula;
-        }*/
+        }
         return $formula;
     }
 
